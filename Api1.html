@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Joke Generator</h1>
+    <div class="container">
+        <button id="fetchJoke">Get a Joke</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('fetchJoke').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Loading...';
+
+            try {
+                const response = await fetch('https://v2.jokeapi.dev/joke/Programming?type=single');
+                const data = await response.json();
+
+                if (data.joke) {
+                    resultDiv.innerHTML = `<p>${data.joke}</p>`;
+                } else {
+                    resultDiv.innerHTML = '<p>Oops! No joke found.</p>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<p>Error fetching joke. Please try again later.</p>';
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
