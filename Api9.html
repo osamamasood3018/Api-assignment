@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            background: #f7ede2;
+            color: #1d3557;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #e63946;
+        }
+        img {
+            border-radius: 50%;
+            margin: 20px auto;
+        }
+        p {
+            font-size: 18px;
+        }
+        button {
+            background: #457b9d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1d3557;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random User Generator</h1>
+    <button id="getUser">Get User</button>
+    <img id="userImage" alt="User Picture" style="width:150px; height:150px; display:none;">
+    <p id="userName"></p>
+    <script>
+        document.getElementById('getUser').addEventListener('click', async () => {
+            const response = await fetch('https://randomuser.me/api/');
+            const data = await response.json();
+            const user = data.results[0];
+            document.getElementById('userImage').src = user.picture.large;
+            document.getElementById('userImage').style.display = "block";
+            document.getElementById('userName').textContent = `${user.name.first} ${user.name.last}, ${user.location.country}`;
+        });
+    </script>
+</body>
+</html>
